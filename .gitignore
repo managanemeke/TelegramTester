@@ -1,0 +1,10 @@
+*
+!/TelegramTester
+!/TelegramTester/*
+!/Tests
+!/Tests/*
+!/compose.yaml
+!/composer.json
+!/phpunit.xml
+!/readme.md
+!/.gitignore

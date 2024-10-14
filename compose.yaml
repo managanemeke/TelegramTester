@@ -1,0 +1,19 @@
+services:
+  composer:
+    image: prooph/composer:8.2
+    container_name: composer
+    volumes:
+      - .:/app
+    command: install
+
+  php:
+    image: prooph/php:8.2-cli
+    container_name: php
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+    volumes:
+      - .:/app
+    network_mode: "host"
+    command: vendor/bin/phpunit
