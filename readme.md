@@ -13,5 +13,9 @@ docker compose run --rm composer install
 ```
 
 ```shell
+mkdir telegram-session
+```
+
+```shell
 docker compose run --rm php vendor/bin/phpunit
 ```
