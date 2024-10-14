@@ -9,7 +9,7 @@ final class SendMessageTest extends Test
         self::tester()
             ->as(self::USER_A)
             ->openChat(self::USER_B)
-            ->sendCommand('test')
+            ->sendMessage('test')
             ->wait(1)
         ;
         $this->assertLastMessageTextEquals('test');
