@@ -13,9 +13,5 @@ docker compose run --rm composer install
 ```
 
 ```shell
-cd MadelineProto && composer install
-```
-
-```shell
 docker compose run --rm php vendor/bin/phpunit
 ```
