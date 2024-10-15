@@ -39,4 +39,9 @@ abstract class Test extends TestCase
     {
         $this->assertTrue(self::$tester->isLastMessageHasDocument());
     }
+
+    protected function assertLastMessageHasContact(): void
+    {
+        $this->assertTrue(self::$tester->isLastMessageHasContact());
+    }
 }

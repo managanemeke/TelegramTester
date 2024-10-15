@@ -89,6 +89,37 @@ class Tester implements Trial
         return $this;
     }
 
+    public function sendContact(
+        string $phoneNumber,
+        string $firstName,
+        string $lastName,
+        string $vcard,
+    ): self {
+        $media = [
+            '_'            => 'inputMediaContact',
+            'phone_number' => $phoneNumber,
+            'first_name'   => $firstName,
+            'last_name'    => $lastName,
+            'vcard'        => $vcard,
+        ];
+        $this->api->messages->sendMedia(
+            peer:  $this->chat,
+            media: $media,
+        );
+        return $this;
+    }
+
+    public function sendOwnContact(): self
+    {
+        $this->sendContact(
+            $this->credential->phone(),
+            $this->credential->firstName(),
+            $this->credential->lastName(),
+            '',
+        );
+        return $this;
+    }
+
     public function clickButton(string $title): self
     {
         $rows = $this->getLastMessageArray()['reply_markup']['rows'] ?? [];
@@ -137,6 +168,16 @@ class Tester implements Trial
         /** @var array|null $document */
         $document = $this->getLastMessageArray()['media']['document'] ?? null;
         return !is_null($document);
+    }
+
+    public function isLastMessageHasContact(): bool
+    {
+        /** @var array|null $messageMediaContact */
+        $messageMediaContact = $this->getLastMessageArray()['media'] ?? null;
+        return
+            !is_null($messageMediaContact)
+            && $messageMediaContact['_'] === 'messageMediaContact'
+        ;
     }
 
     private function getLastMessageText(): string

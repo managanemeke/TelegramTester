@@ -13,8 +13,16 @@ interface Trial
     public function openChat(string $name): self;
     public function sendMessage(string $message): self;
     public function sendCommand(string $command): self;
+    public function sendContact(
+        string $phoneNumber,
+        string $firstName,
+        string $lastName,
+        string $vcard,
+    ): self;
+    public function sendOwnContact(): self;
     public function clickButton(string $title): self;
     public function wait(int $seconds): self;
     public function isLastMessageTextEquals(string $text): bool;
     public function isLastMessageHasDocument(): bool;
+    public function isLastMessageHasContact(): bool;
 }
