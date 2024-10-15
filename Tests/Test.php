@@ -4,11 +4,14 @@ namespace Tests;
 
 use Dotenv\Dotenv;
 use PHPUnit\Framework\TestCase;
+use TelegramTester\Assertions;
 use TelegramTester\Tester;
 use TelegramTester\Trial;
 
 abstract class Test extends TestCase
 {
+    use Assertions;
+
     private static Trial $tester;
 
     public static function setUpBeforeClass(): void
@@ -35,21 +38,6 @@ abstract class Test extends TestCase
     protected static function bot(): string
     {
         return Credentials::bot()->nick();
-    }
-
-    protected function assertLastMessageTextEquals(string $text): void
-    {
-        $this->assertTrue(self::$tester->isLastMessageTextEquals($text));
-    }
-
-    protected function assertLastMessageHasDocument(): void
-    {
-        $this->assertTrue(self::$tester->isLastMessageHasDocument());
-    }
-
-    protected function assertLastMessageHasContact(): void
-    {
-        $this->assertTrue(self::$tester->isLastMessageHasContact());
     }
 
     private static function loadEnvironment(): void
