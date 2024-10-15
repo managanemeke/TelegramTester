@@ -17,5 +17,9 @@ mkdir telegram-session
 ```
 
 ```shell
+cp .env.example .env
+```
+
+```shell
 docker compose run --rm php vendor/bin/phpunit
 ```
