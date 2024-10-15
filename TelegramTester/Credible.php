@@ -4,8 +4,8 @@ namespace TelegramTester;
 
 interface Credible
 {
-    public function sessionName(): string;
+    public function session(): string;
     public function phone(): string;
-    public function firstName(): string;
-    public function lastName(): string;
+    public function first(): string;
+    public function last(): string;
 }

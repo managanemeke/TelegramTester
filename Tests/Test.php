@@ -2,32 +2,39 @@
 
 namespace Tests;
 
+use Dotenv\Dotenv;
 use PHPUnit\Framework\TestCase;
 use TelegramTester\Tester;
 use TelegramTester\Trial;
 
 abstract class Test extends TestCase
 {
-    protected const USER_A = Credentials::USER_A;
-    protected const USER_B = Credentials::USER_B;
-    protected const API_ID = Credentials::API_ID;
-    protected const API_HASH = Credentials::API_HASH;
-
     private static Trial $tester;
 
     public static function setUpBeforeClass(): void
     {
+        self::loadEnvironment();
         self::$tester = (new Tester(
-                self::API_ID,
-                self::API_HASH,
+                Credentials::apiId(),
+                Credentials::apiHash(),
             ))
             ->authorize(Credentials::credentials())
         ;
     }
 
-    public static function tester(): Trial
+    protected static function tester(): Trial
     {
         return self::$tester;
+    }
+
+    protected static function human(): string
+    {
+        return Credentials::human()->nick();
+    }
+
+    protected static function bot(): string
+    {
+        return Credentials::bot()->nick();
     }
 
     protected function assertLastMessageTextEquals(string $text): void
@@ -43,5 +50,14 @@ abstract class Test extends TestCase
     protected function assertLastMessageHasContact(): void
     {
         $this->assertTrue(self::$tester->isLastMessageHasContact());
+    }
+
+    private static function loadEnvironment(): void
+    {
+        $dotenv = Dotenv::createImmutable(
+            realpath(__DIR__ . DIRECTORY_SEPARATOR . '..'),
+            '.env',
+        );
+        $dotenv->safeLoad();
     }
 }

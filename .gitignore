@@ -7,4 +7,5 @@
 !/composer.json
 !/phpunit.xml
 !/readme.md
+!/.env.example
 !/.gitignore

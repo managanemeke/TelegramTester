@@ -7,8 +7,8 @@ final class SendMessageTest extends Test
     public function test(): void
     {
         self::tester()
-            ->as(self::USER_A)
-            ->openChat(self::USER_B)
+            ->as(self::human())
+            ->openChat(self::bot())
             ->sendMessage('test')
             ->wait(1)
         ;

@@ -61,7 +61,7 @@ class Tester implements Trial
         $this->credential = $this->credentials[$credentialName];
         try {
             $this->api = new API(
-                $this->sessionDirectory($this->credential->sessionName()),
+                $this->sessionDirectory($this->credential->session()),
                 $this->settings
             );
         } catch (Exception $e) {
@@ -113,8 +113,8 @@ class Tester implements Trial
     {
         $this->sendContact(
             $this->credential->phone(),
-            $this->credential->firstName(),
-            $this->credential->lastName(),
+            $this->credential->first(),
+            $this->credential->last(),
             '',
         );
         return $this;
@@ -226,7 +226,7 @@ class Tester implements Trial
             $this->api->complete2faLogin($password);
         }
         if ($this->api->getAuthorization() === API::WAITING_SIGNUP) {
-            $this->api->completeSignup($this->credential->firstName(), $this->credential->lastName());
+            $this->api->completeSignup($this->credential->first(), $this->credential->last());
         }
     }
 
